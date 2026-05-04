@@ -1,0 +1,20 @@
+{
+  "created_at_utc": "2026-05-03T15:57:36.261948+00:00",
+  "dataset": "synthetic/demo ranking dataset",
+  "train_queries": 8,
+  "test_queries": 4,
+  "documents": 36,
+  "ranker_backend": "pairwise_logistic_fallback (ModuleNotFoundError)",
+  "metrics": {
+    "bm25_baseline": {
+      "ndcg@10": 0.9877003334735247,
+      "map": 0.9513888888888888,
+      "mrr": 1.0
+    },
+    "learned_ranker": {
+      "ndcg@10": 0.9782876818966169,
+      "map": 0.8958333333333333,
+      "mrr": 1.0
+    }
+  }
+}

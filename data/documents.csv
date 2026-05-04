@@ -1,0 +1,37 @@
+doc_id,title,body,category
+d001,Reset your password when the email does not arrive,"Step by step account recovery instructions for users who request a password reset but never receive the reset email. Covers spam folders, blocked senders, expired links, and retry limits.",support
+d002,Email delivery troubleshooting checklist,"Common reasons transactional email is delayed or blocked, including spam filtering, mailbox storage, domain reputation, and incorrect addresses.",support
+d003,Account security after suspicious login,"How to review recent account activity, rotate passwords, enable two factor authentication, and secure recovery methods.",support
+d004,Current mortgage rate basics,"Plain language guide to how mortgage rates are quoted, what affects rates, and how borrowers compare lenders for home loans.",finance
+d005,Fixed rate versus adjustable rate mortgages,"Comparison of fixed and adjustable mortgages, including payment stability, introductory rates, reset risk, and when each loan type may fit.",finance
+d006,Understanding mortgage closing costs,"Explains origination fees, appraisal costs, points, escrow deposits, and other expenses paid at mortgage closing.",finance
+d007,Pandas merge tutorial with examples,"Examples of merging pandas DataFrames with inner, left, right, and outer joins. Includes key columns, suffixes, validation, and common mistakes.",programming
+d008,SQL joins reference,"Reference for SQL inner joins, left joins, right joins, full joins, and join predicates across relational database tables.",programming
+d009,Cleaning messy spreadsheet data,"Workflow for removing duplicates, normalizing columns, handling missing values, and preparing spreadsheet data for analysis.",productivity
+d010,Early symptoms of type 2 diabetes,"Overview of common adult type 2 diabetes symptoms such as frequent urination, increased thirst, fatigue, blurry vision, and slow healing wounds.",health
+d011,Blood sugar monitoring at home,"Guide to glucose meters, testing schedules, logging results, and discussing patterns with a clinician.",health
+d012,Cold and flu symptom comparison,"How fever, cough, body aches, congestion, and sore throat can differ across common respiratory infections.",health
+d013,Set up a VPN on Windows,"Instructions for configuring a VPN connection on a Windows laptop using built in settings, provider credentials, server address, and authentication type.",security
+d014,Home router security basics,"Recommended router settings including strong admin passwords, firmware updates, WPA encryption, guest networks, and remote management controls.",security
+d015,Private browsing mode myths,"Explains what private or incognito browsing hides locally and what it does not hide from networks, websites, or service providers.",security
+d016,Electric vehicle home charging costs,"Breakdown of EV home charging costs, kilowatt hours, utility rates, level 1 versus level 2 charging, installation expenses, and time to charge.",automotive
+d017,Planning an electric vehicle road trip,"How to estimate driving range, find fast chargers, plan charging stops, and account for weather on long EV trips.",automotive
+d018,Solar panel permit checklist,"Typical residential solar documents, utility interconnection forms, inspections, and local permit steps.",home
+d019,Waterproof hiking boots for winter trails,"Buying guide for waterproof winter hiking boots, traction, insulation, ankle support, fit, break in time, and snow or slush conditions.",outdoors
+d020,Winter trail gear checklist,"Layering, traction devices, navigation, emergency supplies, hydration, and weather planning for cold weather hikes.",outdoors
+d021,Running shoes for pavement,"Road running shoe guide covering cushioning, heel drop, fit, durability, and rotation for daily training.",outdoors
+d022,Carry on baggage size rules,"Overview of airline carry on bag dimensions, weight limits, personal items, measuring wheels and handles, and checking rules before travel.",travel
+d023,Airline pet policies,"Common cabin pet carrier requirements, fees, reservation steps, breed restrictions, and health documentation.",travel
+d024,Airport security checklist,"Packing liquids, electronics, identification, prohibited items, and tips for moving through airport screening.",travel
+d025,French press coffee grind size,"French press brewing guide explaining coarse grind size, extraction time, water temperature, ratio, stirring, and avoiding muddy coffee.",food
+d026,Espresso extraction guide,"How fine grind size, dose, yield, tamping, pressure, and shot time affect espresso flavor.",food
+d027,Keeping coffee beans fresh,"Storage advice for whole beans, airtight containers, light, moisture, freezer use, and grind timing.",food
+d028,Cloud backup strategy for ransomware,"Small business backup plan using cloud storage, versioning, immutable retention, offline copies, restore testing, and ransomware recovery objectives.",security
+d029,External hard drive backup basics,"How to copy important files to an external drive, schedule backups, rotate devices, and verify restore points.",technology
+d030,Cyber insurance overview,"Explains cyber liability policies, incident response coverage, exclusions, risk assessments, and documentation insurers may request.",security
+d031,Federal student loan repayment plans,"Summary of standard, graduated, extended, and income driven student loan repayment options, eligibility, monthly payments, and recertification.",education
+d032,FAFSA application checklist,"Documents and deadlines for completing the Free Application for Federal Student Aid, including income records and school codes.",education
+d033,Private student loan refinancing,"Pros and cons of refinancing private or federal student loans, interest rates, credit requirements, and borrower protections.",finance
+d034,Low light indoor plants care guide,"Care tips for low light houseplants including watering, soil drainage, humidity, fertilizing, pruning, and signs of too much or too little light.",home
+d035,Watering houseplants correctly,"How to check soil moisture, avoid root rot, choose pots with drainage, and adjust watering by season.",home
+d036,Outdoor vegetable garden starter guide,"Planning raised beds, sunlight, soil amendments, spacing, watering, and seasonal planting for vegetables.",home

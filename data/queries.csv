@@ -1,0 +1,13 @@
+query_id,query,split
+q001,password reset email not received,train
+q002,best mortgage rates fixed vs adjustable,train
+q003,python pandas merge dataframes examples,train
+q004,symptoms of type 2 diabetes in adults,train
+q005,configure vpn on windows laptop,train
+q006,electric car home charging cost,train
+q007,waterproof hiking boots for winter trails,train
+q008,airline carry on baggage size rules,train
+q009,how to grind coffee for french press,test
+q010,cloud backup small business ransomware,test
+q011,student loan repayment options,test
+q012,care for low light indoor plants,test
