@@ -69,7 +69,33 @@ def load_qrels(path: Path = QRELS_PATH) -> list[Qrel]:
 
 
 def load_dataset() -> tuple[list[Query], list[Document], list[Qrel]]:
-    return load_queries(), load_documents(), load_qrels()
+    queries, documents, qrels = load_queries(), load_documents(), load_qrels()
+    validate_dataset(queries, documents, qrels)
+    return queries, documents, qrels
+
+
+def validate_dataset(
+    queries: list[Query], documents: list[Document], qrels: list[Qrel]
+) -> None:
+    query_ids = {query.query_id for query in queries}
+    document_ids = {document.doc_id for document in documents}
+    allowed_splits = {"train", "test"}
+
+    invalid_splits = sorted({query.split for query in queries if query.split not in allowed_splits})
+    if invalid_splits:
+        raise ValueError(f"Invalid query split values: {invalid_splits}. Expected train/test.")
+
+    missing_query_refs = sorted({qrel.query_id for qrel in qrels if qrel.query_id not in query_ids})
+    if missing_query_refs:
+        raise ValueError(f"Qrels reference unknown query_id values: {missing_query_refs[:5]}.")
+
+    missing_doc_refs = sorted({qrel.doc_id for qrel in qrels if qrel.doc_id not in document_ids})
+    if missing_doc_refs:
+        raise ValueError(f"Qrels reference unknown doc_id values: {missing_doc_refs[:5]}.")
+
+    invalid_relevance = sorted({qrel.relevance for qrel in qrels if qrel.relevance < 0})
+    if invalid_relevance:
+        raise ValueError(f"Relevance labels must be non-negative, found: {invalid_relevance}.")
 
 
 def qrels_by_query(qrels: list[Qrel]) -> dict[str, dict[str, int]]:

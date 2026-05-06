@@ -42,6 +42,7 @@ This saves:
 - `models/ranking_pipeline.pkl`
 - `reports/metrics.json`
 - `reports/evaluation_summary.md`
+- `reports/run_history.jsonl` (append-only history of train/evaluate runs)
 
 ## Evaluate
 

@@ -11,5 +11,6 @@ QRELS_PATH = DATA_DIR / "qrels.csv"
 PIPELINE_PATH = MODELS_DIR / "ranking_pipeline.pkl"
 METRICS_PATH = REPORTS_DIR / "metrics.json"
 SUMMARY_PATH = REPORTS_DIR / "evaluation_summary.md"
+RUN_HISTORY_PATH = REPORTS_DIR / "run_history.jsonl"
 
 RANDOM_SEED = 42
