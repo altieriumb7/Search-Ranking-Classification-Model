@@ -3,7 +3,15 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 
-from src.config import METRICS_PATH, MODELS_DIR, PIPELINE_PATH, REPORTS_DIR, SUMMARY_PATH
+from src.config import (
+    METRICS_PATH,
+    MODELS_DIR,
+    PIPELINE_PATH,
+    RANDOM_SEED,
+    REPORTS_DIR,
+    RUN_HISTORY_PATH,
+    SUMMARY_PATH,
+)
 from src.data_loader import load_dataset
 from src.evaluation import evaluate_pipeline
 from src.features import FeatureExtractor
@@ -31,18 +39,29 @@ def train() -> dict[str, object]:
     metrics = evaluate_pipeline(pipeline, test_queries, qrels, top_k=10)
     output = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "run_type": "train",
         "dataset": "synthetic/demo ranking dataset",
         "train_queries": len(train_queries),
         "test_queries": len(test_queries),
         "documents": len(documents),
         "ranker_backend": ranker.backend,
+        "feature_count": len(feature_extractor.feature_names),
+        "feature_names": feature_extractor.feature_names,
+        "random_seed": RANDOM_SEED,
         "metrics": metrics,
     }
 
     with METRICS_PATH.open("w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
+    append_run_history(output)
     SUMMARY_PATH.write_text(_summary_markdown(output), encoding="utf-8")
     return output
+
+
+def append_run_history(output: dict[str, object]) -> None:
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    with RUN_HISTORY_PATH.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(output) + "\n")
 
 
 def _summary_markdown(output: dict[str, object]) -> str:
