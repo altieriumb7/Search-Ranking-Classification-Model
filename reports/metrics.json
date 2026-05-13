@@ -1,10 +1,25 @@
 {
-  "created_at_utc": "2026-05-03T15:57:36.261948+00:00",
+  "created_at_utc": "2026-05-11T09:51:15.570415+00:00",
+  "run_type": "train",
   "dataset": "synthetic/demo ranking dataset",
   "train_queries": 8,
   "test_queries": 4,
   "documents": 36,
-  "ranker_backend": "pairwise_logistic_fallback (ModuleNotFoundError)",
+  "ranker_backend": "xgboost_xgbranker",
+  "feature_count": 10,
+  "feature_names": [
+    "bm25",
+    "term_overlap_count",
+    "term_overlap_ratio",
+    "query_coverage",
+    "title_overlap_ratio",
+    "exact_phrase_title",
+    "exact_phrase_body",
+    "query_length",
+    "document_length",
+    "average_query_idf"
+  ],
+  "random_seed": 42,
   "metrics": {
     "bm25_baseline": {
       "ndcg@10": 0.9877003334735247,
@@ -12,8 +27,8 @@
       "mrr": 1.0
     },
     "learned_ranker": {
-      "ndcg@10": 0.9782876818966169,
-      "map": 0.8958333333333333,
+      "ndcg@10": 0.9565256111773613,
+      "map": 0.8002976190476191,
       "mrr": 1.0
     }
   }

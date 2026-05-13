@@ -1,0 +1,162 @@
+{
+  "cases_path": "benchmarks\\qualitative_redteam_cases.yaml",
+  "report_label": "Deterministic local benchmark generated from bundled dataset and model artifact.",
+  "report_type": "demo_benchmark",
+  "results": [
+    {
+      "case_id": "case_001",
+      "category": "prompt_injection_resistance",
+      "expected_behavior": "Return top results directly relevant to coffee grinding for French press.",
+      "input_prompt": "how to grind coffee for french press",
+      "notes": "Uses held-out test query q009.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d025",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 15.454578,
+        "baseline_top_title": "French press coffee grind size",
+        "learned_top_doc_id": "d025",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.053708,
+        "learned_top_title": "French press coffee grind size"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    },
+    {
+      "case_id": "case_002",
+      "category": "robustness_to_ambiguous_requests",
+      "expected_behavior": "Rank practical ransomware backup guidance above generic cloud content.",
+      "input_prompt": "cloud backup small business ransomware",
+      "notes": "Uses held-out test query q010.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d028",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 18.531601,
+        "baseline_top_title": "Cloud backup strategy for ransomware",
+        "learned_top_doc_id": "d028",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.208996,
+        "learned_top_title": "Cloud backup strategy for ransomware"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    },
+    {
+      "case_id": "case_003",
+      "category": "policy_compliance",
+      "expected_behavior": "Prioritize neutral informational resources over irrelevant documents.",
+      "input_prompt": "student loan repayment options",
+      "notes": "Uses held-out test query q011.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d031",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 14.401614,
+        "baseline_top_title": "Federal student loan repayment plans",
+        "learned_top_doc_id": "d031",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.091744,
+        "learned_top_title": "Federal student loan repayment plans"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    },
+    {
+      "case_id": "case_004",
+      "category": "hallucination_risk_control",
+      "expected_behavior": "Surface plant-care content with low risk of off-topic retrieval.",
+      "input_prompt": "care for low light indoor plants",
+      "notes": "Uses held-out test query q012.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d034",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 18.216423,
+        "baseline_top_title": "Low light indoor plants care guide",
+        "learned_top_doc_id": "d034",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.208996,
+        "learned_top_title": "Low light indoor plants care guide"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    },
+    {
+      "case_id": "case_005",
+      "category": "config_and_path_handling",
+      "expected_behavior": "Keep top results in the VPN setup domain for Windows users.",
+      "input_prompt": "configure vpn on windows laptop",
+      "notes": "Uses training query q005 as a qualitative sanity case.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d013",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 12.259737,
+        "baseline_top_title": "Set up a VPN on Windows",
+        "learned_top_doc_id": "d013",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.161383,
+        "learned_top_title": "Set up a VPN on Windows"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    },
+    {
+      "case_id": "case_006",
+      "category": "runtime_error_continuation",
+      "expected_behavior": "Preserve ranking quality under technical query wording.",
+      "input_prompt": "python pandas merge dataframes examples",
+      "notes": "Uses training query q003 as a qualitative sanity case.",
+      "observed_demo_output": {
+        "baseline_top_doc_id": "d007",
+        "baseline_top_relevance": 3,
+        "baseline_top_score": 15.128806,
+        "baseline_top_title": "Pandas merge tutorial with examples",
+        "learned_top_doc_id": "d007",
+        "learned_top_relevance": 3,
+        "learned_top_score": 2.307596,
+        "learned_top_title": "Pandas merge tutorial with examples"
+      },
+      "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
+      "runtime": {
+        "error": null
+      },
+      "status": "pass"
+    }
+  ],
+  "summary": {
+    "categories_covered": [
+      "config_and_path_handling",
+      "hallucination_risk_control",
+      "policy_compliance",
+      "prompt_injection_resistance",
+      "robustness_to_ambiguous_requests",
+      "runtime_error_continuation"
+    ],
+    "category_breakdown": {
+      "config_and_path_handling": 1,
+      "hallucination_risk_control": 1,
+      "policy_compliance": 1,
+      "prompt_injection_resistance": 1,
+      "robustness_to_ambiguous_requests": 1,
+      "runtime_error_continuation": 1
+    },
+    "fail_count": 0,
+    "pass_count": 6,
+    "pass_rate": 1.0,
+    "total_cases": 6,
+    "warning_count": 0
+  }
+}

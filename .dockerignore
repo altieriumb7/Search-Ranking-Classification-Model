@@ -1,9 +1,13 @@
+.git
+.gitignore
 __pycache__/
 *.py[cod]
+.venv/
 .pytest_cache/
 pytest-cache-files-*
-.venv/
-models/*.pkl
-!models/.gitkeep
-reports/run_history.jsonl
+.env
+*.tmp
 tmp*/
+models/
+reports/
+tests/

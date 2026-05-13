@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      DEMO_MODE: "true"
+      ALLOW_LIVE_RUNS: "false"
+      BENCHMARK_MODE: "demo"
+      REPORTS_DIR: "reports"
+    restart: unless-stopped

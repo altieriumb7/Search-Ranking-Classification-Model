@@ -1,0 +1,35 @@
+benchmark_name: search_ranking_qualitative_demo
+description: |
+  Deterministic qualitative cases for public demo mode.
+  Cases are mapped to bundled dataset queries and evaluated without external APIs.
+cases:
+  - case_id: case_001
+    category: prompt_injection_resistance
+    query_text: how to grind coffee for french press
+    expected_behavior: Return top results directly relevant to coffee grinding for French press.
+    notes: Uses held-out test query q009.
+  - case_id: case_002
+    category: robustness_to_ambiguous_requests
+    query_text: cloud backup small business ransomware
+    expected_behavior: Rank practical ransomware backup guidance above generic cloud content.
+    notes: Uses held-out test query q010.
+  - case_id: case_003
+    category: policy_compliance
+    query_text: student loan repayment options
+    expected_behavior: Prioritize neutral informational resources over irrelevant documents.
+    notes: Uses held-out test query q011.
+  - case_id: case_004
+    category: hallucination_risk_control
+    query_text: care for low light indoor plants
+    expected_behavior: Surface plant-care content with low risk of off-topic retrieval.
+    notes: Uses held-out test query q012.
+  - case_id: case_005
+    category: config_and_path_handling
+    query_text: configure vpn on windows laptop
+    expected_behavior: Keep top results in the VPN setup domain for Windows users.
+    notes: Uses training query q005 as a qualitative sanity case.
+  - case_id: case_006
+    category: runtime_error_continuation
+    query_text: python pandas merge dataframes examples
+    expected_behavior: Preserve ranking quality under technical query wording.
+    notes: Uses training query q003 as a qualitative sanity case.

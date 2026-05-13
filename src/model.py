@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import math
+import logging
 import pickle
 from collections import defaultdict
 from pathlib import Path
 from typing import Iterable
 
-from src.config import RANDOM_SEED
+from src.config import MODELS_DIR, RANDOM_SEED
+
+
+logger = logging.getLogger(__name__)
 
 
 class PairwiseLogisticRanker:
@@ -98,23 +102,30 @@ class LearningToRankModel:
         if self.prefer_xgboost:
             try:
                 from xgboost import XGBRanker
-
-                self.model = XGBRanker(
-                    objective="rank:ndcg",
-                    eval_metric="ndcg@10",
-                    n_estimators=80,
-                    max_depth=3,
-                    learning_rate=0.08,
-                    subsample=0.9,
-                    colsample_bytree=0.9,
-                    random_state=RANDOM_SEED,
-                    tree_method="hist",
-                )
-                self.model.fit(X, y, group=groups, verbose=False)
-                self.backend = "xgboost_xgbranker"
-                return self
-            except Exception as exc:
+            except ImportError as exc:
                 self.backend = f"pairwise_logistic_fallback ({exc.__class__.__name__})"
+                logger.warning("XGBoost is not available, using fallback ranker: %s", exc)
+            else:
+                try:
+                    self.model = XGBRanker(
+                        objective="rank:ndcg",
+                        eval_metric="ndcg@10",
+                        n_estimators=80,
+                        max_depth=3,
+                        learning_rate=0.08,
+                        subsample=0.9,
+                        colsample_bytree=0.9,
+                        random_state=RANDOM_SEED,
+                        tree_method="hist",
+                    )
+                    self.model.fit(X, y, group=groups, verbose=False)
+                    self.backend = "xgboost_xgbranker"
+                    return self
+                except Exception as exc:
+                    self.backend = f"pairwise_logistic_fallback ({exc.__class__.__name__})"
+                    logger.exception(
+                        "XGBoost training failed, using fallback ranker: %s", exc
+                    )
 
         self.model = PairwiseLogisticRanker().fit(X, y, qids)
         if self.backend == "untrained":
@@ -135,7 +146,15 @@ def save_pickle(obj: object, path: Path) -> None:
 
 
 def load_pickle(path: Path) -> object:
-    with path.open("rb") as f:
+    resolved_path = path.resolve()
+    models_root = MODELS_DIR.resolve()
+    if resolved_path.suffix != ".pkl":
+        raise ValueError(f"Refusing to load non-pickle artifact: {resolved_path}")
+    try:
+        resolved_path.relative_to(models_root)
+    except ValueError:
+        raise ValueError(f"Refusing to load pickle outside models directory: {resolved_path}")
+    with resolved_path.open("rb") as f:
         return pickle.load(f)
 
 

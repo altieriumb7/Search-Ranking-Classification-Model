@@ -1,0 +1,12 @@
+metric,value
+total_cases,6
+pass_count,6
+warning_count,0
+fail_count,0
+pass_rate,1.0
+category:config_and_path_handling,1
+category:hallucination_risk_control,1
+category:policy_compliance,1
+category:prompt_injection_resistance,1
+category:robustness_to_ambiguous_requests,1
+category:runtime_error_continuation,1
