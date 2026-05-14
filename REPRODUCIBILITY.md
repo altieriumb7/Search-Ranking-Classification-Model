@@ -28,9 +28,13 @@ docker run --rm -p 8501:8501 -e DEMO_MODE=true -e ALLOW_LIVE_RUNS=false llm-redt
 - SDK: Docker
 - `DEMO_MODE=true`
 - `ALLOW_LIVE_RUNS=false`
+- `REQUIRE_SESSION_API_KEY=false`
 - `DEFAULT_CONFIG_PATH=evals/config.yaml`
 - `REPORTS_DIR=reports`
 - `BENCHMARK_MODE=demo`
+- `LIVE_RUN_MAX_CASES=3`
+- `LIVE_RUN_COOLDOWN_SECONDS=60`
+- `LIVE_RUN_MAX_RUNS_PER_PROCESS=3`
 - Optional Secret: `OPENAI_API_KEY`
 
 ## Benchmark Generation

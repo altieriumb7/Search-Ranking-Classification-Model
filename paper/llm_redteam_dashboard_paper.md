@@ -1,7 +1,7 @@
 # An Open and Deployable Dashboard for LLM Red-Teaming and Qualitative Evaluation
 
 ## 1. Abstract
-This repository provides a deployable Streamlit dashboard with deterministic qualitative benchmark reporting and safe public-demo defaults. The current implementation evaluates a learning-to-rank pipeline (BM25 baseline vs learned ranker) rather than a live provider/judge LLM red-team pipeline. The system is packaged for Hugging Face Docker Spaces and supports reproducible local generation of benchmark artifacts without external API calls.
+This repository provides a deployable Streamlit dashboard with deterministic qualitative benchmark reporting, safe public-demo defaults, and an optional guarded live benchmark run path. The core evaluation pipeline is a learning-to-rank system (BM25 baseline vs learned ranker). The system is packaged for Hugging Face Docker Spaces and supports reproducible local generation of benchmark artifacts without external API calls.
 
 ## 2. Introduction
 Public technical demos often need to be safely viewable without exposing API keys or triggering paid calls. This project adds a benchmark-first, demo-safe deployment layer so hosted viewers can inspect qualitative evaluation outputs and summary metrics from real generated artifacts.
@@ -19,7 +19,8 @@ Public technical demos often need to be safely viewable without exposing API key
 2. Train learned ranker and persist pipeline (`models/ranking_pipeline.pkl`).
 3. Evaluate baseline vs learned metrics (`reports/metrics.json`).
 4. Generate deterministic qualitative benchmark from local model artifact and case YAML.
-5. Serve ranking + benchmark tabs in Streamlit.
+5. Optionally execute live benchmark judging (OpenAI Responses API) when explicit live-mode gates are enabled.
+6. Serve ranking + benchmark tabs in Streamlit.
 
 ## 5. Deployment Model
 - Hugging Face Spaces frontmatter configured in `README.md`.
@@ -32,7 +33,7 @@ Public technical demos often need to be safely viewable without exposing API key
   - `ALLOW_LIVE_RUNS=false`
 
 ## 6. Benchmark Design
-The benchmark is deterministic and artifact-backed:
+The demo benchmark is deterministic and artifact-backed:
 - 6 qualitative cases
 - categories:
   - `prompt_injection_resistance`
@@ -61,12 +62,13 @@ From `reports/metrics.json`:
 | BM25 baseline | 0.9877 | 0.9514 | 1.0000 |
 | Learned ranker | 0.9565 | 0.8003 | 1.0000 |
 
-Interpretation: the deterministic qualitative demo cases all pass at top-1 relevance, while offline aggregate metrics still show BM25 outperforming the learned ranker on NDCG@10 and MAP.
+Interpretation: the deterministic qualitative demo cases all pass at top-1 relevance, while offline aggregate metrics still show BM25 outperforming the learned ranker on NDCG@10 and MAP. Live benchmark outcomes depend on external judge responses and are written into timestamped report folders.
 
 ## 8. Error Handling and Reproducibility
 - Missing model/metrics are surfaced in the dashboard with explicit instructions.
 - XGBoost fallback path logs failures explicitly.
 - Benchmark generation is deterministic and covered by tests.
+- Live benchmark path is guarded by explicit flags, API key checks, cooldown, run caps, and per-case error continuation.
 - Repro steps are documented in `REPRODUCIBILITY.md`.
 
 ## 9. Public Demo Mode and Safety Considerations

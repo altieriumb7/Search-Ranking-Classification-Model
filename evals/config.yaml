@@ -1,0 +1,6 @@
+# Placeholder config path for dashboard/runtime visibility.
+# This repository currently executes ranking evaluation pipelines, not a full
+# external-provider red-team orchestration from this file.
+project: search-ranking-classification-model
+mode: benchmark
+reports_dir: reports

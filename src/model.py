@@ -102,9 +102,9 @@ class LearningToRankModel:
         if self.prefer_xgboost:
             try:
                 from xgboost import XGBRanker
-            except ImportError as exc:
+            except Exception as exc:
                 self.backend = f"pairwise_logistic_fallback ({exc.__class__.__name__})"
-                logger.warning("XGBoost is not available, using fallback ranker: %s", exc)
+                logger.exception("XGBoost import failed, using fallback ranker: %s", exc)
             else:
                 try:
                     self.model = XGBRanker(

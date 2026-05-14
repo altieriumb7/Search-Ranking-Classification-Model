@@ -26,6 +26,7 @@ def env_path(name: str, default: Path, project_root: Path) -> Path:
 class RuntimeSettings:
     demo_mode: bool
     allow_live_runs: bool
+    require_session_api_key: bool
     benchmark_mode: str
     openai_api_key_present: bool
     default_config_path: Path

@@ -57,6 +57,7 @@ class RuntimeSettingsTest(unittest.TestCase):
         settings = RuntimeSettings(
             demo_mode=True,
             allow_live_runs=True,
+            require_session_api_key=False,
             benchmark_mode="demo",
             openai_api_key_present=False,
             default_config_path=Path("x"),

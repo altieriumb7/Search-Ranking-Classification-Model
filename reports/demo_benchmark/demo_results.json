@@ -16,7 +16,7 @@
         "baseline_top_title": "French press coffee grind size",
         "learned_top_doc_id": "d025",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.053708,
+        "learned_top_score": 8.598065,
         "learned_top_title": "French press coffee grind size"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
@@ -38,7 +38,7 @@
         "baseline_top_title": "Cloud backup strategy for ransomware",
         "learned_top_doc_id": "d028",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.208996,
+        "learned_top_score": 8.358197,
         "learned_top_title": "Cloud backup strategy for ransomware"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
@@ -60,7 +60,7 @@
         "baseline_top_title": "Federal student loan repayment plans",
         "learned_top_doc_id": "d031",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.091744,
+        "learned_top_score": 8.345831,
         "learned_top_title": "Federal student loan repayment plans"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
@@ -82,7 +82,7 @@
         "baseline_top_title": "Low light indoor plants care guide",
         "learned_top_doc_id": "d034",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.208996,
+        "learned_top_score": 8.909672,
         "learned_top_title": "Low light indoor plants care guide"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
@@ -104,7 +104,7 @@
         "baseline_top_title": "Set up a VPN on Windows",
         "learned_top_doc_id": "d013",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.161383,
+        "learned_top_score": 5.887325,
         "learned_top_title": "Set up a VPN on Windows"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",
@@ -126,7 +126,7 @@
         "baseline_top_title": "Pandas merge tutorial with examples",
         "learned_top_doc_id": "d007",
         "learned_top_relevance": 3,
-        "learned_top_score": 2.307596,
+        "learned_top_score": 6.946529,
         "learned_top_title": "Pandas merge tutorial with examples"
       },
       "qualitative_assessment": "Learned ranker retrieved a highly relevant top result.",

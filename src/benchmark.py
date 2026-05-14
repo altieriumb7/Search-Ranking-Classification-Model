@@ -11,6 +11,7 @@ import yaml
 from src.config import PIPELINE_PATH, PROJECT_ROOT, REPORTS_DIR
 from src.data_loader import load_dataset, qrels_by_query
 from src.model import load_pickle
+from src.train_ranker import train
 
 BENCHMARK_CASES_PATH = PROJECT_ROOT / "benchmarks" / "qualitative_redteam_cases.yaml"
 DEMO_BENCHMARK_DIR = REPORTS_DIR / "demo_benchmark"
@@ -70,7 +71,11 @@ def generate_demo_benchmark(
     queries, _documents, qrels = load_dataset()
     judged = qrels_by_query(qrels)
     query_by_text = {query.text: query for query in queries}
-    pipeline = load_pickle(PIPELINE_PATH)
+    try:
+        pipeline = load_pickle(PIPELINE_PATH)
+    except Exception:
+        train()
+        pipeline = load_pickle(PIPELINE_PATH)
 
     cases = []
     for case in load_benchmark_cases(cases_path):
@@ -181,6 +186,8 @@ def generate_demo_benchmark(
 
 def load_benchmark_report(report_dir: Path) -> dict[str, Any]:
     json_path = report_dir / "demo_results.json"
+    if not json_path.exists():
+        json_path = report_dir / "live_results.json"
     with json_path.open(encoding="utf-8") as f:
         return json.load(f)
 
@@ -190,6 +197,12 @@ def list_benchmark_report_dirs(reports_dir: Path = REPORTS_DIR) -> list[Path]:
         return []
     candidates = []
     for path in sorted(reports_dir.iterdir()):
-        if path.is_dir() and (path / "demo_results.json").exists():
+        if path.is_dir() and (
+            (path / "demo_results.json").exists() or (path / "live_results.json").exists()
+        ):
             candidates.append(path)
+        if path.is_dir() and path.name == "live_benchmark":
+            for subdir in sorted(path.iterdir()):
+                if subdir.is_dir() and (subdir / "live_results.json").exists():
+                    candidates.append(subdir)
     return candidates

@@ -20,6 +20,7 @@ from src.config import (
     load_runtime_settings,
 )
 from src.data_loader import load_dataset, qrels_by_query
+from src.live_benchmark import can_execute_live_runs, resolve_live_api_key, run_live_benchmark
 from src.model import load_pickle
 
 st.set_page_config(page_title="Search Ranking LTR Demo", layout="wide")
@@ -106,12 +107,13 @@ st.sidebar.title("Runtime Settings")
 st.sidebar.write(f"Current mode: `{settings.mode_label}`")
 st.sidebar.write(f"`DEMO_MODE`: `{settings.demo_mode}`")
 st.sidebar.write(f"`ALLOW_LIVE_RUNS`: `{settings.allow_live_runs}`")
+st.sidebar.write(f"`REQUIRE_SESSION_API_KEY`: `{settings.require_session_api_key}`")
 st.sidebar.write(f"`BENCHMARK_MODE`: `{settings.benchmark_mode}`")
 st.sidebar.write(f"`OPENAI_API_KEY present`: `{settings.openai_api_key_present}`")
 st.sidebar.write(f"`DEFAULT_CONFIG_PATH`: `{_relative_label(settings.default_config_path)}`")
 st.sidebar.write(f"`REPORTS_DIR`: `{_relative_label(settings.reports_dir)}`")
 
-if settings.live_runs_enabled and not settings.openai_api_key_present:
+if settings.live_runs_enabled:
     session_key = st.sidebar.text_input(
         "Session OPENAI_API_KEY (not persisted)",
         type="password",
@@ -122,10 +124,14 @@ if settings.live_runs_enabled and not settings.openai_api_key_present:
     st.sidebar.write(
         f"`Session key present`: `{bool(st.session_state.get('session_api_key'))}`"
     )
-    if not st.session_state.get("session_api_key"):
+    if not (settings.openai_api_key_present or st.session_state.get("session_api_key")):
         st.sidebar.warning(
             "Live mode is enabled but no API key is available. Add `OPENAI_API_KEY` as an env var "
             "or provide a session key above."
+        )
+    if settings.require_session_api_key:
+        st.sidebar.info(
+            "Visitor-key mode is enabled: live runs require a session key and will not use host secret."
         )
 
 config_paths = _config_candidates(settings.default_config_path)
@@ -223,6 +229,38 @@ with tabs[1]:
     st.markdown("### Benchmark & Qualitative Evaluation")
     if settings.demo_mode:
         st.info("Hosted demo uses deterministic local benchmark artifacts only.")
+    else:
+        st.info(
+            "Live mode is enabled. Running live benchmark may consume API credits. "
+            "Use conservative limits in environment variables."
+        )
+
+    live_model = st.text_input("Live judge model", value="gpt-4o-mini")
+    live_api_key = resolve_live_api_key(
+        st.session_state.get("session_api_key"),
+        require_session_key=settings.require_session_api_key,
+    )
+    can_live_run, live_reason = can_execute_live_runs(live_api_key)
+    live_button_help = (
+        "May consume paid API credits. Applies runtime limits from environment variables."
+    )
+    if st.button(
+        "Run live benchmark (may consume API credits)",
+        disabled=not can_live_run,
+        help=live_button_help,
+    ):
+        try:
+            live_payload = run_live_benchmark(api_key=live_api_key, model=live_model)
+            st.success(
+                "Live benchmark completed. Report saved to "
+                f"`reports/live_benchmark/{live_payload['timestamp_utc']}`."
+            )
+            st.cache_data.clear()
+        except Exception as exc:
+            st.error(f"Live benchmark failed: {exc}")
+    if not can_live_run:
+        st.caption(f"Live run unavailable: {live_reason}")
+
     if st.button("Regenerate demo benchmark (no API calls)"):
         try:
             generate_demo_benchmark(output_dir=settings.reports_dir / "demo_benchmark")
@@ -262,7 +300,11 @@ with tabs[1]:
                     st.write(f"**Input prompt:** {case['input_prompt']}")
                     st.write(f"**Expected behavior:** {case['expected_behavior']}")
                     st.write(f"**Assessment:** {case['qualitative_assessment']}")
-                    st.json(case["observed_demo_output"])
+                    observed = case.get("observed_demo_output") or case.get("observed_live_output") or {}
+                    st.json(observed)
+                    runtime_error = case.get("runtime", {}).get("error")
+                    if runtime_error:
+                        st.error(f"runtime.error: {runtime_error}")
                     if case["notes"]:
                         st.caption(case["notes"])
 
@@ -286,7 +328,11 @@ with tabs[1]:
                 )
 
             json_path = report_dir / "demo_results.json"
+            if not json_path.exists():
+                json_path = report_dir / "live_results.json"
             csv_path = report_dir / "demo_summary.csv"
+            if not csv_path.exists():
+                csv_path = report_dir / "live_summary.csv"
             md_path = report_dir / "qualitative_case_gallery.md"
             if json_path.exists():
                 st.download_button(
