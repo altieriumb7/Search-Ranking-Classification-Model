@@ -1,5 +1,5 @@
 ---
-title: LLM Red Team Evaluation Dashboard
+title: Search Ranking Benchmark Dashboard
 emoji: 🧪
 colorFrom: red
 colorTo: gray
