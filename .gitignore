@@ -7,3 +7,4 @@ models/*.pkl
 !models/.gitkeep
 reports/run_history.jsonl
 tmp*/
+hf-space/
